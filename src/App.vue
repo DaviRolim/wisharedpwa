@@ -1,19 +1,19 @@
 <template>
   <v-app>
     <v-toolbar app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-sm-and-up" ></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-if="userAuthenticated" @click.stop="drawer = !drawer" class="hidden-sm-and-up" ></v-toolbar-side-icon>
       <v-toolbar-title class="headline text-uppercase text-center">
         <span>WISHARED</span>
         <!-- <span class="font-weight-light">MATERIAL DESIGN</span> -->
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
+      <!-- <v-btn
         flat
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
         target="_blank"
       >
         <span class="mr-2">Latest Release</span>
-      </v-btn>
+      </v-btn> -->
     </v-toolbar>
     <v-navigation-drawer
       v-model="drawer"
@@ -51,22 +51,19 @@
       </v-list>
     </v-navigation-drawer>
     <v-content>
-      <HelloWorld/>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  },
   data () {
     return {
       drawer: null,
+      userAuthenticated: false,
       items: [
         { title: 'Home', icon: 'dashboard' },
         { title: 'About', icon: 'question_answer' }
