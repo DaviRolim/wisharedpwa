@@ -5,7 +5,7 @@
             <v-card class="elevation-5">
                <v-toolbar>
                 <transition name="fadeOne">
-                  <v-toolbar-title v-show="isLoginMode">Login</v-toolbar-title>
+                  <v-toolbar-title v-show="isLoginMode">Login to your wishared account</v-toolbar-title>
                 </transition>
                 <transition name="fadeTwo">
                   <v-toolbar-title v-show="!isLoginMode">Signup</v-toolbar-title>
@@ -14,8 +14,18 @@
               <v-card-text>
             <v-container>
               <form v-on:keyup.enter="onSignin">
-                <v-layout row>
-                  <v-flex>
+                <v-layout row wrap>
+                  <v-flex v-if="!isLoginMode" xs12>
+                    <v-text-field
+                    name="name"
+                    label="Full Name"
+                    id="name"
+                    v-model="name"
+                    type="text"
+                    prepend-icon="person"
+                    required></v-text-field>
+                  </v-flex>
+                  <v-flex xs12>
                     <v-text-field
                     name="username"
                     label="username"
@@ -25,14 +35,22 @@
                     prepend-icon="person"
                     required></v-text-field>
                   </v-flex>
-                </v-layout>
-                <v-layout row>
-                  <v-flex>
+                  <v-flex xs12>
                     <v-text-field
                     name="password"
                     label="Password"
                     id="password"
                     v-model="password"
+                    type="password"
+                    prepend-icon="lock"
+                    required></v-text-field>
+                  </v-flex>
+                  <v-flex v-if="!isLoginMode" xs12>
+                    <v-text-field
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    id="confirmPassword"
+                    v-model="confirmPassword"
                     type="password"
                     prepend-icon="lock"
                     required></v-text-field>
@@ -54,6 +72,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
+import { authService } from '@/service/auth-service';
+import * as actions from '@/store/auth/actions.map'
 
 @Component({
   components: {
@@ -61,9 +81,15 @@ import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
   }
 })
 export default class Login extends Vue {
-  username: string = ''
-  password: string = ''
-  isLoginMode: boolean = true
+  private name: string = ''
+  private username: string = ''
+  private password: string = ''
+  private isLoginMode: boolean = true
+  private confirmPassword: string = ''
+
+  private async signIn(email: string, password: string) {
+
+  }
 }
 </script>
 
