@@ -56,21 +56,27 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Getter, Action, State } from 'vuex-class'
+import * as getters from '@/store/auth/getters.map'
+import { authCredentials } from '@/interface/i-auth'
 
-export default {
-  name: 'App',
-  data () {
-    return {
-      drawer: null,
-      userAuthenticated: false,
-      items: [
-        { title: 'Home', icon: 'dashboard' },
-        { title: 'About', icon: 'question_answer' }
-      ],
-      right: null
-      //
-    }
+const namespace = 'auth'
+
+@Component({})
+export default class App extends Vue {
+ @Getter(getters.authCredentials, { namespace })
+  private authCredentials!: authCredentials
+
+  private drawer: boolean = false
+  private items = [
+    { title: 'Home', icon: 'dashboard' },
+    { title: 'About', icon: 'question_answer' }
+  ]
+  private get userAuthenticated () {
+    console.log(this.authCredentials.token);
+    return this.authCredentials.token != null
   }
 }
 </script>
