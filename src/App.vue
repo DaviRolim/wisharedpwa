@@ -17,7 +17,6 @@
     </v-toolbar>
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="mini"
       absolute
       temporary
     >
