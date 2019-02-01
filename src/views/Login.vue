@@ -105,7 +105,7 @@ export default class Login extends Vue {
   private async signIn () {
     const { data } = await authService.signin(this.email, this.password)
     this.$store.dispatch(actions.setAuthCredentials(data))
-    this.$router.push('/home')
+    this.$router.push('/mywishes')
   }
 
   private async signUp () {
